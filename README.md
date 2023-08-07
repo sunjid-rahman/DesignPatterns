@@ -44,8 +44,8 @@ The Singleton Pattern is a creational design pattern that ensures that a class h
 
 In Python, the singleton pattern can be implemented using a class with a private constructor and a static instance variable. Here's an example of how to implement the singleton pattern in Python:
 
-
-``class Singleton:
+```
+class Singleton:
     __instance = None   # private variable to hold the instance
     
     def __init__(self):
@@ -60,6 +60,7 @@ In Python, the singleton pattern can be implemented using a class with a private
         if Singleton.__instance == None:
             Singleton()
         return Singleton.__instance
+```
 
 
 if __name__ == "__main__":
