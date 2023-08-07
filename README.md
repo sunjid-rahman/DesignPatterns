@@ -1,19 +1,37 @@
 # Details
 
 Creational Patterns: These patterns are focused on object creation mechanisms, and they help to create objects in a manner that is suitable for the situation. Some examples of creational patterns include:
+
+
 Singleton Pattern: ensures that only one instance of a class is created and provides a global point of access to it.
+
 Factory Pattern: provides an interface for creating objects, but allows subclasses to decide which classes to instantiate.
+
 Builder Pattern: separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+
 Prototype Pattern: creates new objects by cloning existing ones, without coupling the code to the actual classes of the objects.
+
+
 Structural Patterns: These patterns are concerned with object composition and they focus on how objects are connected or related to each other. Some examples of structural patterns include:
+
+
 Adapter Pattern: converts the interface of a class into another interface that clients expect, allowing classes to work together despite incompatible interfaces.
+
 Bridge Pattern: separates an object's interface from its implementation, allowing the two to vary independently.
+
 Composite Pattern: treats a group of objects as a single object, allowing the same operations to be performed on the group and on individual objects.
+
 Decorator Pattern: adds functionality to an object dynamically, without changing its original structure.
+
+
 Behavioral Patterns: These patterns deal with communication between objects, defining how objects communicate and interact with each other. Some examples of behavioral patterns include:
+
 Command Pattern: encapsulates a request as an object, allowing the parameterization of clients with different requests, queues, or logs, and supporting undoable operations.
+
 Observer Pattern: defines a one-to-many dependency between objects, so that when one object changes state, all its dependents are notified and updated automatically.
+
 Strategy Pattern: defines a family of algorithms, encapsulates each one, and makes them interchangeable, allowing the algorithm to vary independently from clients that use it.
+
 Template Method Pattern: defines the skeleton of an algorithm in a superclass, allowing its subclasses to redefine certain steps of the algorithm without changing its structure.
 
 
