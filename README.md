@@ -134,7 +134,58 @@ The Builder Pattern is a creational design pattern that separates the constructi
 
 In Python, the builder pattern can be implemented using a builder class that handles the construction of the object step by step. Here's an example of how to implement the builder pattern in Python:
 
-----code----
+```
+class Computer:
+    def __init__(self, cpu=None, ram=None, ssd=None, gpu=None):
+        self.cpu = cpu
+        self.ram = ram
+        self.ssd = ssd
+        self.gpu = gpu
+
+    def __str__(self):
+        return f"Computer with CPU:{self.cpu}, RAM:{self.ram}, ssd:{self.ssd}, GPU:{self.gpu}"
+
+
+class ComputerBuilder:
+    def __init__(self):
+        self.computer = Computer()
+
+    def set_cpu(self, cpu):
+        self.computer.cpu = cpu
+
+    def set_ram(self, ram):
+        self.computer.ram = ram
+
+    def set_ssd(self, ssd):
+        self.computer.ssd = ssd
+
+    def set_gpu(self, gpu):
+        self.computer.gpu = gpu
+
+    def get_computer(self):
+        return self.computer
+
+
+class Director:
+    def __init__(self, builder):
+        self.builder = builder
+
+    def build_computer(self):
+        self.builder.set_cpu("Intel Core i8")
+        self.builder.set_ram("16GB")
+        self.builder.set_ssd("256GB")
+        self.builder.set_gpu("Nvidia GTX 1660")
+
+
+if __name__ == "__main__":
+    builder = ComputerBuilder()
+    director = Director(builder)
+    director.build_computer()
+    computer = builder.get_computer()
+    print(computer) # Output: Computer with CPU:Intel Core i8, RAM:16GB, ssd:256GB, GPU:Nvidia GTX 1660
+
+
+```
 
 In this example, we have a Person class that has name, age, and gender attributes. We also have a PersonBuilder class that handles the construction of the Person object. The PersonBuilder class has methods for setting the name, age, and gender attributes of the Person object. The build method returns the Person object after it has been constructed.
 
@@ -148,7 +199,47 @@ The Prototype Pattern is a creational design pattern that allows us to create ne
 
 In Python, the prototype pattern can be implemented using a prototype object and a clone method. Here's an example of how to implement the prototype pattern in Python:
 
-----code----
+```
+import copy
+
+
+class Prototype:
+    def __init__(self):
+        self.objects = {}
+
+    def register(self, name, obj):
+        self.objects[name] = obj
+
+    def unregister(self, name):
+        del self.objects[name]
+
+    def clone(self, obj_name, **kwargs):
+        obj = copy.deepcopy(self.objects.get(obj_name))
+        obj.__dict__.update(kwargs)
+        return obj
+
+
+class Person:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+
+    def __repr__(self):
+        return f"Person(name='{self.name}', age={self.age}, gender='{self.gender}')"
+
+
+if __name__ == '__main__':
+    prototype = Prototype()
+
+    person1 = Person("John", 30, "Male")
+    prototype.register("person1", person1)
+
+    person2 = prototype.clone("person1", name="Jane", age=25)
+    print(person1) # Output: Person(name='John', age=30, gender='Male')
+    print(person2) # Output: Person(name='Jane', age=25, gender='Male')
+
+```
 
 In this example, we have a Prototype class that stores a dictionary of objects and provides methods for registering, unregistering, and cloning those objects. We also have a Person class that has name, age, and gender attributes.
 
@@ -166,7 +257,58 @@ The Adapter Pattern is a structural design pattern that allows objects with inco
 
 In Python, the Adapter Pattern can be implemented using a class that acts as an adapter between two incompatible interfaces. The adapter class implements the interface of one object and translates the requests into a format that the other object can understand. Here's an example of how to implement the Adapter Pattern in Python:
 
-----code ----
+```
+class CelsiusTemperature:
+    def __init__(self, temperature):
+        self.temperature = temperature
+
+    def get_temperature_celsius(self):
+        return self.temperature
+
+
+class FahrenheitTemperature:
+    def __init__(self, temperature):
+        self.temperature = temperature
+
+    def get_temperature_fahrenheit(self):
+        return self.temperature
+
+
+class TemperatureAdapter:
+    def get_temperature(self):
+        pass
+
+
+class CelsiusToFahrenheitAdapter(TemperatureAdapter):
+    def __init__(self, celsius_temperature):
+        self.celsius_temperature = celsius_temperature
+
+    def get_temperature(self):
+        celsius_temp = self.celsius_temperature.get_temperature_celsius()
+        fahrenheit_temp = (celsius_temp * 9 / 5) + 32
+        return fahrenheit_temp
+
+
+class FahrenheitToCelsiusAdapter(TemperatureAdapter):
+    def __init__(self, fahrenheit_temperature):
+        self.fahrenheit_temperature = fahrenheit_temperature
+
+    def get_temperature(self):
+        fahrenheit_temp = self.fahrenheit_temperature.get_temperature_fahrenheit()
+        celsius_temp = (fahrenheit_temp - 32) * 5 / 9
+        return celsius_temp
+
+
+if __name__ == "__main__":
+    celsius_temp = CelsiusTemperature(20.0)
+    fahrenheit_temp = CelsiusToFahrenheitAdapter(celsius_temp)
+    print(f"The temperature in Fahrenheit is {fahrenheit_temp.get_temperature()} degrees.")
+
+    fahrenheit_temp = FahrenheitTemperature(68.0)
+    celsius_temp = FahrenheitToCelsiusAdapter(fahrenheit_temp)
+    print(f"The temperature in Celsius is {celsius_temp.get_temperature()} degrees.")
+
+```
 
 The code defines two classes for temperature representation, CelsiusTemperature and FahrenheitTemperature, which have different methods for getting the temperature in Celsius and Fahrenheit, respectively.
 
@@ -182,7 +324,87 @@ The Bridge pattern is a structural design pattern that separates an abstraction 
 
 Here is an example implementation of the Bridge pattern in Python:
 
-----code----
+```
+class Shape:
+    def __init__(self, color):
+        self.color = color
+
+    def draw(self):
+        pass
+
+
+
+class Circle(Shape):
+    def __init__(self, color, x, y, radius):
+        super().__init__(color)
+        self.x = x
+        self.y = y
+        self.radius = radius
+
+    def draw(self):
+        print(f"Drawing Circle at ({self.x}, {self.y}), radius {self.radius}, color {self.color}")
+
+
+class Square(Shape):
+    def __init__(self, color, x, y, side_length):
+        super().__init__(color)
+        self.x = x
+        self.y = y
+        self.side_length = side_length
+
+    def draw(self):
+        print(f"Drawing Square at ({self.x}, {self.y}), side length {self.side_length}, color {self.color}")
+
+
+
+class Renderer:
+    def render_circle(self, x, y, radius, color):
+        pass
+
+    def render_square(self, x, y, side_length, color):
+        pass
+
+
+
+class VectorRenderer(Renderer):
+    def render_circle(self, x, y, radius, color):
+        print(f"Drawing a vector circle at ({x}, {y}), radius {radius}, color {color}")
+
+    def render_square(self, x, y, side_length, color):
+        print(f"Drawing a vector square at ({x}, {y}), side length {side_length}, color {color}")
+
+
+class RasterRenderer(Renderer):
+    def render_circle(self, x, y, radius, color):
+        print(f"Drawing a raster circle at ({x}, {y}), radius {radius}, color {color}")
+
+    def render_square(self, x, y, side_length, color):
+        print(f"Drawing a raster square at ({x}, {y}), side length {side_length}, color {color}")
+
+
+if __name__ == "__main__":
+    circle = Circle("red", 10, 10, 5)
+    square = Square("blue", 20, 20, 10)
+
+    vector_renderer = VectorRenderer()
+    raster_renderer = RasterRenderer()
+
+    circle.draw()
+    square.draw()
+
+    circle.color = "green"
+    square.color = "yellow"
+
+    circle.draw()
+    square.draw()
+
+    circle.renderer = vector_renderer
+    square.renderer = raster_renderer
+
+    circle.draw()
+    square.draw()
+
+```
 
 In this example, we have an abstraction Shape with two concrete implementations Circle and Square. We also have an implementation hierarchy with two concrete implementations VectorRenderer and RasterRenderer. The Shape class has a reference to an implementation of Renderer class. The draw method of the Shape class calls the render method of the implementation of Renderer class to draw the shape.
 
