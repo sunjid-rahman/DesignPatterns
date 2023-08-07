@@ -47,7 +47,6 @@ In Python, the singleton pattern can be implemented using a class with a private
 
 class Singleton:
     __instance = None   # private variable to hold the instance
-
     def __init__(self):
         if Singleton.__instance != None:
             raise Exception("Singleton class cannot be instantiated more than once")
