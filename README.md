@@ -61,6 +61,7 @@ class Singleton:
         if Singleton.__instance == None:
             Singleton()
         return Singleton.__instance
+
 ```
 
 
