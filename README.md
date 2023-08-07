@@ -83,7 +83,43 @@ The Factory Pattern is a creational design pattern that provides an interface fo
 
 In Python, the factory pattern can be implemented using a class method or a separate factory class. Here's an example of how to implement the factory pattern in Python using a class method:
 
-----code----
+```
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        pass
+
+    @classmethod
+    def create(cls, animal_type, name):
+        if animal_type == "Dog":
+            return Dog(name)
+        elif animal_type == "Cat":
+            return Cat(name)
+        else:
+            raise ValueError(f"Invalid animal type: {animal_type}")
+
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof"
+
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow"
+
+
+if __name__ == '__main__':
+    dog = Animal.create("Dog", "Fido")
+    print(dog.speak())  # Output: "Woof"
+
+    cat = Animal.create("Cat", "Whiskers")
+    print(cat.speak())  # Output: "Meow"
+
+```
 
 In this example, we have an Animal class with a create class method that takes an animal_type argument and returns an instance of the appropriate subclass (Dog or Cat). The Dog and Cat subclasses implement the speak method to return the animal's sound.
 
