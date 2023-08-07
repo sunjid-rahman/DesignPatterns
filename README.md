@@ -45,8 +45,9 @@ The Singleton Pattern is a creational design pattern that ensures that a class h
 In Python, the singleton pattern can be implemented using a class with a private constructor and a static instance variable. Here's an example of how to implement the singleton pattern in Python:
 
 
-class Singleton:
+``class Singleton:
     __instance = None   # private variable to hold the instance
+    
     def __init__(self):
         if Singleton.__instance != None:
             raise Exception("Singleton class cannot be instantiated more than once")
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     s1 = Singleton.getInstance()
     s2 = Singleton.getInstance()
     print(s1 == s2) # Output: True
-    print(s1.value) # Output: This is a singleton instance.
+    print(s1.value) # Output: This is a singleton instance.```
 
 
  In this example, we have a Singleton class with a private constructor that can only be called from within the class. The class also has a static instance variable _instance that holds the single instance of the class. The __new__ method of the class checks whether the instance variable is None, and if so, creates a new instance of the class and assigns it to the _instance variable. If the instance variable is not None, it returns the existing instance.
